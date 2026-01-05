@@ -1,4 +1,4 @@
-import { Schema } from "jcc-eloquent";
+import { Schema } from "jcc-express-mvc/Eloquent";
 export class Migration {
   up() {
     return Schema.create("users", (table) => {
