@@ -1,0 +1,43 @@
+{
+  "node_modules/laravel-vite-plugin/inertia-helpers/index.js": [],
+  "resources/js/Components/Header.jsx": [
+    "/build/assets/Header-BPVhw9yf.mjs"
+  ],
+  "resources/js/Components/ui/button.tsx": [
+    "/build/assets/button-CjC9Szlf.mjs"
+  ],
+  "resources/js/Components/ui/card.tsx": [
+    "/build/assets/card-DTx77LuE.mjs"
+  ],
+  "resources/js/Components/ui/input.tsx": [
+    "/build/assets/input-CTBr40PW.mjs"
+  ],
+  "resources/js/Components/ui/label.tsx": [
+    "/build/assets/Header-BPVhw9yf.mjs"
+  ],
+  "resources/js/Components/video-room.tsx": [
+    "/build/assets/RoomId-D1lc-HCg.mjs"
+  ],
+  "resources/js/Components/video-stream.tsx": [
+    "/build/assets/RoomId-D1lc-HCg.mjs"
+  ],
+  "resources/js/Pages/Auth/Login.tsx": [
+    "/build/assets/Login-BuGN0tum.mjs"
+  ],
+  "resources/js/Pages/Auth/Register.tsx": [
+    "/build/assets/Register-Cbx3aFto.mjs"
+  ],
+  "resources/js/Pages/Home.tsx": [
+    "/build/assets/Home-BjiddKrz.mjs"
+  ],
+  "resources/js/Pages/Index.tsx": [
+    "/build/assets/Index-vnfZkojT.mjs"
+  ],
+  "resources/js/Pages/RoomId.tsx": [
+    "/build/assets/RoomId-D1lc-HCg.mjs"
+  ],
+  "resources/js/lib/utils.tsx": [
+    "/build/assets/button-CjC9Szlf.mjs"
+  ],
+  "resources/js/ssr.tsx": []
+}
