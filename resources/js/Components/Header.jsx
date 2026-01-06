@@ -1,6 +1,5 @@
 import { Link } from "@inertiajs/react";
 import { Server } from "lucide-react";
-import React from "react";
 
 const Header = () => {
   return (
