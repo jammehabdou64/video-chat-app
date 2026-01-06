@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.ts",
   "scripts": {
-    "start": "bun -r tsconfig-paths/register ./build/server.js",
+    "start": "bun ./build/server.js",
     "dev": "bun --watch -r tsconfig-paths/register server.ts",
     "watch": "vite",
     "build": "tsc && bun artisanNode build",
