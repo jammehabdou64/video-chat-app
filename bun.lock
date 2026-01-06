@@ -952,7 +952,7 @@
 
     "isexe": ["isexe@2.0.0", "", {}, "sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw=="],
 
-    "jcc-express-mvc": ["jcc-express-mvc@1.7.13", "", {}, "sha512-dPPL826pG67tVz+HvjWqypMymMpgpN9WndXOu3MAkLx1i3Oh3PqLuXYrisUxOMJnFA0yJOnXs0B+TE1w07K4aw=="],
+    "jcc-express-mvc": ["jcc-express-mvc@1.7.14", "", {}, "sha512-DDjLTUWWQPQwRvaG5p4CQ/zvLHAAGCSduw8pH6VC3+2nHF5NnFkpsBMmzeT+uVkKRaGqw2mHUYbbFm2qkv/tlw=="],
 
     "jiti": ["jiti@2.6.1", "", { "bin": "lib/jiti-cli.mjs" }, "sha512-ekilCSN1jwRvIbgeg/57YFh8qQDNbwDb9xT/qu2DAHbFFZUicIl4ygVaAvzveMhMVr3LnpSKTNnwt8PoOfmKhQ=="],
 

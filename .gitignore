@@ -2,8 +2,6 @@
 
 # dependencies
 /node_modules
-/public/build
-/bootstrap/ssr
 /public/hot
 /.pnp
 .pnp.js
@@ -11,6 +9,7 @@
 /coverage
 
 # production
+/build
 /dist
 # misc
 .env
