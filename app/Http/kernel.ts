@@ -20,7 +20,7 @@ export class Kernel {
     }),
     flash(),
     fileUpload(),
-    inertia({ rootView: "index" }),
+    inertia({ rootView: "index", ssr: true }),
   ];
 
   public middlewareAliases = {
