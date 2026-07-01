@@ -1,12 +1,8 @@
 import { FormRequest } from "jcc-express-mvc/Core/FormRequest";
-import { Request, bcrypt } from "jcc-express-mvc";
+import { bcrypt } from "jcc-express-mvc";
 import { User } from "@/Model/User";
 
 export class AuthRequest extends FormRequest {
-  constructor(req: Request) {
-    super(req);
-  }
-
   async rules() {
     await this.validate({
       //
