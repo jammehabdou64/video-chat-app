@@ -50,7 +50,27 @@ export default function VideoRoom({ roomId }: { roomId: string }) {
     };
   }, []);
 
+  const removePeer = (peerId: string) => {
+    const peerConnection = peerConnectionsRef.current.get(peerId);
+    if (peerConnection) {
+      peerConnection.close();
+      peerConnectionsRef.current.delete(peerId);
+    }
+
+    const stream = remoteStreamsRef.current.get(peerId);
+    if (stream) {
+      stream.getTracks().forEach((track) => track.stop());
+    }
+    remoteStreamsRef.current.delete(peerId);
+
+    setRemotePeers((prev) => prev.filter((p) => p.peerId !== peerId));
+  };
+
   useEffect(() => {
+    if (!localStream) {
+      return;
+    }
+
     const socketInstance = io("/", {
       reconnection: true,
       reconnectionDelay: 1000,
@@ -67,18 +87,14 @@ export default function VideoRoom({ roomId }: { roomId: string }) {
 
     socketInstance.on("user-joined", (data: { userId: string }) => {
       console.log("User joined:", data.userId);
-      if (localStream) {
-        createPeerConnection(data.userId, true, socketInstance, localStream);
-      }
+      createPeerConnection(data.userId, true, socketInstance, localStream);
     });
 
     socketInstance.on(
       "offer",
       async (data: { from: string; offer: RTCSessionDescriptionInit }) => {
         console.log("Received offer from:", data.from);
-        if (localStream) {
-          await handleOffer(data.from, data.offer, socketInstance, localStream);
-        }
+        await handleOffer(data.from, data.offer, socketInstance, localStream);
       },
     );
 
@@ -117,13 +133,7 @@ export default function VideoRoom({ roomId }: { roomId: string }) {
 
     socketInstance.on("user-left", (data: { userId: string }) => {
       console.log("User left:", data.userId);
-      const peerConnection = peerConnectionsRef.current.get(data.userId);
-      if (peerConnection) {
-        peerConnection.close();
-        peerConnectionsRef.current.delete(data.userId);
-      }
-      remoteStreamsRef.current.delete(data.userId);
-      setRemotePeers((prev) => prev.filter((p) => p.peerId !== data.userId));
+      removePeer(data.userId);
     });
 
     socketInstance.on("disconnect", () => {
@@ -191,6 +201,13 @@ export default function VideoRoom({ roomId }: { roomId: string }) {
         `Connection state with ${peerId}:`,
         peerConnection.connectionState,
       );
+
+      if (
+        peerConnection.connectionState === "failed" ||
+        peerConnection.connectionState === "closed"
+      ) {
+        removePeer(peerId);
+      }
     };
 
     peerConnectionsRef.current.set(peerId, peerConnection);

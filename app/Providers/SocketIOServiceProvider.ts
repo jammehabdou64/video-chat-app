@@ -10,7 +10,7 @@ export class SocketIOServiceProvider extends SocketProvider {
   register(): void {}
 
   boot(): void {
-    const rooms = new Map();
+    const socketRooms = new Map<string, string>();
 
     this.io.on("connection", (socket) => {
       console.log("New user connected:", socket.id);
@@ -18,23 +18,18 @@ export class SocketIOServiceProvider extends SocketProvider {
       socket.on("join-room", ({ roomId }) => {
         console.log(`User ${socket.id} joining room ${roomId}`);
 
-        // Get all existing users in the room
+        socket.join(roomId);
+        socketRooms.set(socket.id, roomId);
+
         const usersInRoom = Array.from(
           this.io.sockets.adapter.rooms.get(roomId) || [],
         );
 
-        // Let the new user know who is already in the room
         socket.emit("all-users", {
           users: usersInRoom.filter((id) => id !== socket.id),
         });
 
-        // Notify everyone else that a new user has joined
         socket.to(roomId).emit("user-joined", { userId: socket.id });
-
-        // Join the room
-        socket.join(roomId);
-
-        socket.join(roomId);
       });
 
       socket.on("offer", ({ to, offer }) => {
@@ -58,13 +53,16 @@ export class SocketIOServiceProvider extends SocketProvider {
 
       socket.on("leave-room", ({ roomId }) => {
         socket.leave(roomId);
-        this.io.to(roomId).emit("user-left", { userId: socket.id });
+        socketRooms.delete(socket.id);
+        socket.to(roomId).emit("user-left", { userId: socket.id });
       });
 
       socket.on("disconnect", () => {
-        socket.rooms.forEach((room) => {
-          this.io.to(room).emit("user-left", { userId: socket.id });
-        });
+        const roomId = socketRooms.get(socket.id);
+        if (roomId) {
+          socket.to(roomId).emit("user-left", { userId: socket.id });
+          socketRooms.delete(socket.id);
+        }
       });
     });
   }
