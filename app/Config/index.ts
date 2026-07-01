@@ -4,6 +4,7 @@ import { engine } from "./engine";
 import { rateLimit } from "./rate-limit";
 import { service } from "./service";
 import { database } from "./database";
+import { session } from "./session";
 
 export const config = {
   auth,
@@ -12,4 +13,5 @@ export const config = {
   rateLimit,
   database,
   service,
+  session,
 };
