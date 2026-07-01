@@ -15,7 +15,7 @@ export default function VideoStream({ stream, peerId }: VideoStreamProps) {
   }, [stream]);
 
   return (
-    <div className="relative min-h-0 overflow-hidden rounded-lg bg-slate-800">
+    <div className="relative h-full min-h-0 overflow-hidden rounded-lg bg-slate-800">
       <video
         ref={videoRef}
         autoPlay

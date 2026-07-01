@@ -248,7 +248,24 @@ export default function VideoRoom({ roomId }: { roomId: string }) {
 
   const participantCount = remotePeers.length + 1;
   const gridCols = Math.ceil(Math.sqrt(participantCount));
-  const gridRows = Math.ceil(participantCount / gridCols);
+  const participantRows = Array.from(
+    { length: Math.ceil(participantCount / gridCols) },
+    (_, rowIndex) => {
+      const start = rowIndex * gridCols;
+      if (rowIndex === 0) {
+        return [
+          { type: "local" as const, key: "local" },
+          ...remotePeers
+            .slice(0, gridCols - 1)
+            .map((peer) => ({ type: "remote" as const, key: peer.peerId, peer })),
+        ];
+      }
+
+      return remotePeers
+        .slice(start - 1, start - 1 + gridCols)
+        .map((peer) => ({ type: "remote" as const, key: peer.peerId, peer }));
+    },
+  );
 
   const leaveCall = () => {
     if (socket) {
@@ -288,33 +305,45 @@ export default function VideoRoom({ roomId }: { roomId: string }) {
         <div className="bg-red-900 text-red-100 p-4 text-center">{error}</div>
       )}
 
-      <div className="flex-1 min-h-0 overflow-hidden p-4">
-        <div
-          className="grid h-full w-full max-w-7xl mx-auto gap-4"
-          style={{
-            gridTemplateColumns: `repeat(${gridCols}, minmax(0, 1fr))`,
-            gridTemplateRows: `repeat(${gridRows}, minmax(0, 1fr))`,
-          }}
-        >
-          <div className="relative min-h-0 overflow-hidden rounded-lg bg-slate-800">
-            <video
-              ref={localVideoRef}
-              autoPlay
-              playsInline
-              muted
-              className="absolute inset-0 h-full w-full object-cover"
-            />
-            <div className="absolute bottom-2 left-2 bg-slate-900 px-2 py-1 rounded text-white text-xs">
-              You
+      <div className="flex h-0 flex-1 min-h-0 flex-col overflow-hidden p-4">
+        <div className="mx-auto flex h-full min-h-0 w-full max-w-7xl flex-col gap-2">
+          {participantRows.map((row, rowIndex) => (
+            <div key={rowIndex} className="flex min-h-0 flex-1 gap-2">
+              {row.map((participant) => (
+                <div
+                  key={participant.key}
+                  className="h-full min-h-0 min-w-0 flex-1"
+                >
+                  {participant.type === "local" ? (
+                    <div className="relative h-full min-h-0 overflow-hidden rounded-lg bg-slate-800">
+                      <video
+                        ref={localVideoRef}
+                        autoPlay
+                        playsInline
+                        muted
+                        className="absolute inset-0 h-full w-full object-cover"
+                      />
+                      <div className="absolute bottom-2 left-2 rounded bg-slate-900 px-2 py-1 text-xs text-white">
+                        You
+                      </div>
+                    </div>
+                  ) : (
+                    <VideoStream
+                      stream={participant.peer.stream}
+                      peerId={participant.peer.peerId}
+                    />
+                  )}
+                </div>
+              ))}
+              {row.length < gridCols &&
+                Array.from({ length: gridCols - row.length }).map((_, index) => (
+                  <div
+                    key={`spacer-${rowIndex}-${index}`}
+                    className="min-h-0 min-w-0 flex-1"
+                    aria-hidden
+                  />
+                ))}
             </div>
-          </div>
-
-          {remotePeers.map((peer) => (
-            <VideoStream
-              key={peer.peerId}
-              stream={peer.stream}
-              peerId={peer.peerId}
-            />
           ))}
         </div>
       </div>
