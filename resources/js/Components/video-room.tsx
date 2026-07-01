@@ -246,6 +246,10 @@ export default function VideoRoom({ roomId }: { roomId: string }) {
     }
   };
 
+  const participantCount = remotePeers.length + 1;
+  const gridCols = Math.ceil(Math.sqrt(participantCount));
+  const gridRows = Math.ceil(participantCount / gridCols);
+
   const leaveCall = () => {
     if (socket) {
       socket.emit("leave-room", { roomId });
@@ -263,7 +267,7 @@ export default function VideoRoom({ roomId }: { roomId: string }) {
   };
 
   return (
-    <div className="w-full h-screen bg-black flex flex-col">
+    <div className="fixed inset-0 flex flex-col overflow-hidden bg-black">
       <div className="bg-slate-900 border-b border-slate-700 p-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <h1 className="text-white text-xl font-semibold">
@@ -284,32 +288,21 @@ export default function VideoRoom({ roomId }: { roomId: string }) {
         <div className="bg-red-900 text-red-100 p-4 text-center">{error}</div>
       )}
 
-      <div className="flex-1 overflow-auto p-4">
-        {/* className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-max max-w-7xl mx-auto" */}
+      <div className="flex-1 min-h-0 overflow-hidden p-4">
         <div
-          className={`grid gap-4 auto-rows-max max-w-7xl mx-auto`}
+          className="grid h-full w-full max-w-7xl mx-auto gap-4"
           style={{
-            // Dynamic columns: pick the square root of participants for a balanced grid
-            gridTemplateColumns: `repeat(${Math.ceil(
-              Math.sqrt(remotePeers.length + 1),
-            )}, 1fr)`,
-            // Dynamic row height to fill the viewport
-            gridAutoRows: `${Math.floor(
-              100 /
-                Math.ceil(
-                  (remotePeers.length + 1) /
-                    Math.ceil(Math.sqrt(remotePeers.length + 1)),
-                ),
-            )}vh`,
+            gridTemplateColumns: `repeat(${gridCols}, minmax(0, 1fr))`,
+            gridTemplateRows: `repeat(${gridRows}, minmax(0, 1fr))`,
           }}
         >
-          <div className="bg-slate-800 rounded-lg overflow-hidden h-full relative">
+          <div className="relative min-h-0 overflow-hidden rounded-lg bg-slate-800">
             <video
               ref={localVideoRef}
               autoPlay
               playsInline
               muted
-              className="w-full h-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover"
             />
             <div className="absolute bottom-2 left-2 bg-slate-900 px-2 py-1 rounded text-white text-xs">
               You

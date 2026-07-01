@@ -16,10 +16,10 @@
     "/build/assets/Header-BPVhw9yf.mjs"
   ],
   "resources/js/Components/video-room.tsx": [
-    "/build/assets/RoomId-D1lc-HCg.mjs"
+    "/build/assets/RoomId-CCXMiuGW.mjs"
   ],
   "resources/js/Components/video-stream.tsx": [
-    "/build/assets/RoomId-D1lc-HCg.mjs"
+    "/build/assets/RoomId-CCXMiuGW.mjs"
   ],
   "resources/js/Pages/Auth/Login.tsx": [
     "/build/assets/Login-BuGN0tum.mjs"
@@ -34,7 +34,7 @@
     "/build/assets/Index-vnfZkojT.mjs"
   ],
   "resources/js/Pages/RoomId.tsx": [
-    "/build/assets/RoomId-D1lc-HCg.mjs"
+    "/build/assets/RoomId-CCXMiuGW.mjs"
   ],
   "resources/js/lib/utils.tsx": [
     "/build/assets/button-CjC9Szlf.mjs"

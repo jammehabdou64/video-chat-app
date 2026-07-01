@@ -164,6 +164,13 @@ body {
   * {
     @apply border-border;
   }
+
+  html,
+  body,
+  #app {
+    height: 100%;
+  }
+
   body {
     @apply bg-background text-foreground;
   }

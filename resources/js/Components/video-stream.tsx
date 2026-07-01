@@ -15,12 +15,12 @@ export default function VideoStream({ stream, peerId }: VideoStreamProps) {
   }, [stream]);
 
   return (
-    <div className="bg-slate-800 rounded-lg overflow-hidden h-full relative">
+    <div className="relative min-h-0 overflow-hidden rounded-lg bg-slate-800">
       <video
         ref={videoRef}
         autoPlay
         playsInline
-        className="w-full h-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover"
       />
       {!stream && (
         <div className="absolute inset-0 flex items-center justify-center bg-slate-900">

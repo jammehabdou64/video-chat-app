@@ -20,7 +20,7 @@ createServer(
     title: (title) => title ? `${title} - ${appName}` : appName,
     resolve: (name) => resolvePageComponent(
       `./Pages/${name}.tsx`,
-      /* @__PURE__ */ Object.assign({ "./Pages/Auth/Login.tsx": () => import("./assets/Login-BuGN0tum.mjs"), "./Pages/Auth/Register.tsx": () => import("./assets/Register-Cbx3aFto.mjs"), "./Pages/Home.tsx": () => import("./assets/Home-BjiddKrz.mjs"), "./Pages/Index.tsx": () => import("./assets/Index-vnfZkojT.mjs"), "./Pages/RoomId.tsx": () => import("./assets/RoomId-D1lc-HCg.mjs") })
+      /* @__PURE__ */ Object.assign({ "./Pages/Auth/Login.tsx": () => import("./assets/Login-BuGN0tum.mjs"), "./Pages/Auth/Register.tsx": () => import("./assets/Register-Cbx3aFto.mjs"), "./Pages/Home.tsx": () => import("./assets/Home-BjiddKrz.mjs"), "./Pages/Index.tsx": () => import("./assets/Index-vnfZkojT.mjs"), "./Pages/RoomId.tsx": () => import("./assets/RoomId-CCXMiuGW.mjs") })
     ),
     setup: ({ App, props }) => {
       return /* @__PURE__ */ jsx(App, { ...props });
